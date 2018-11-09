@@ -10,7 +10,7 @@
       crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     
-    <title>Frequently Asked Questions</title>
+    <title>Database</title>
     <style>
       body {
        height: 100%;
@@ -19,14 +19,16 @@
        background-color: #A9AAB0;
       }
 
-      .content {
-        padding-left: 10px;
-        padding-top: 10px;
+      .ui.raised.very.padded.text.container.segment {
         margin-top: -14px;
         margin-left: 10%;
-        margin-right: 10%;
         background-color: #656774;
         height: 100%
+      }
+      
+      .ui.text.container {
+        max-width: 80% !important;
+        
       }
     </style>
   </head>
@@ -53,13 +55,18 @@
     <div class="ui raised very padded text container segment">
       <h1>Database</h1>
       
+      <div class="ui search">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="Enter address, crime...">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+      
     </div>
     <script>
-      /*<![CDATA[*/
-      $(document).ready(function(){
-        $('.ui.accordion').accordion();
-      });
-      /*]]>*/
+        
+   
     </script>
   </body>
 </html>

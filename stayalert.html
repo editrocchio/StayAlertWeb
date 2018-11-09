@@ -103,6 +103,11 @@
         FAQ
       </a>
     </div>
+    
+    <div id="floating-panel">
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button> 
+    </div>
+    
     <div id="map"></div>
 
     <div id="filter"><h1 class="ui header"><p>Filter Map </p></h1>
@@ -170,6 +175,10 @@
           zoom: 12
         });
       }
+      
+      $('.menu .item')
+        .tab()
+      ;
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&callback=initMap"
     async defer></script>
