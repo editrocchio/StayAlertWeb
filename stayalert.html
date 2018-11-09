@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>Stay Alert</title>
-    <meta charset="utf-8"> 
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
   </head>
@@ -14,11 +14,11 @@
         width: 50%;
         margin-left: 10%;
         margin-bottom: 2%;
-        border: 2px solid #2E303D;
+        border: 2px solid black;
         display: inline-block;
         border-radius: 10px;
       }
-      
+
       html, body {
         height: 100%;
         margin: 0 0 0 0;
@@ -26,15 +26,17 @@
         background-color: #A9AAB0;
 
       }
-          
+
       .twitter-timeline {
+        border: 2px solid black;
         margin-left: 10%;
+        border-radius: 1%;
       }
-      
+
       #filter {
         width: 28%;
         height: 50%;
-        background-color: #656774;
+        background-color: #292f33;
         float: right;
         margin: 0 10% 0 0;
         padding-left: 10px;
@@ -42,20 +44,20 @@
         text-align: left;
         border-radius: 10px;
         z-index: 1000;
-        border: 2px solid #2E303D;
+        border: 2px solid black;
       }
-       
+
       .outercheck {
         margin-bottom: 5%;
         height: 4%;
       }
-      
+
       p {
         color: white;
       }
 
-    
-      
+
+
     </style>
   </head>
   <body>
@@ -77,8 +79,8 @@
   </a>
 </div>
     <div id="map"></div>
-    
-    <div id="filter"><h1 class="ui header"><p>Filter</p></h1>
+
+    <div id="filter"><h1 class="ui header"><p>Filter Map </p></h1>
       <div class="outercheck">
         <div class="ui checkbox">
           <input type="checkbox" name="example">
@@ -134,7 +136,7 @@
         </div>
       </div>
     </div>
-    <a class="twitter-timeline" data-width="50%" data-height="310" href="https://twitter.com/VancouverPD?ref_src=twsrc%5Etfw">Tweets by VancouverPD</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <a class="twitter-timeline" data-width="50%" data-height="310" data-theme="dark" data-link-color="#F5F8FA" data-chrome="nofooter" href="https://twitter.com/VancouverPD?ref_src=twsrc%5Etfw">Tweets by VancouverPD</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script>
       var map;
       function initMap() {
@@ -146,6 +148,6 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&callback=initMap"
     async defer></script>
-    
+
  </body>
 </html>
