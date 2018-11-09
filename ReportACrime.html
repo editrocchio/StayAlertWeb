@@ -6,6 +6,13 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <title>Report A Crime</title>
     <style>
+
+      a:visited {
+        color: purple;
+      }
+      a:link {
+        color: white;
+      }
       body {
        height: 100%;
        margin: 0 0 0 0;
@@ -21,6 +28,24 @@
         margin-right: 10%;
         background-color: #656774;
         height: 100%
+      }
+
+      .emergency {
+        text-align: center;
+        width: 80%;
+        margin-left: 10%;
+        height: 65px;
+        border: solid 2px red;
+        background-color: #ffcccc;
+        border-radius: 10px;
+      }
+
+      .emergencyText {
+        padding-left: 10px;
+        line-height: 65px;
+        font-size: 18pt;
+
+        color: red;
       }
     </style>
   </head>
@@ -46,6 +71,35 @@
 
     <div class="content">
       <h1>Report Crimes</h1>
+      <div class="emergency">
+        <p class="emergencyText">Call 911 for an emergency!</p>
+      </div>
+      <h3>Report Crimes Online</h3>
+      <p>To start reporting a crime online, see <a href="PoliceCitizenReporting_net" alt="report crime online">Online Citizen Reporting</a> to view reporting.
+      <hX><br/><br/>Other useful links:</hX>
+        <ul>
+          <li><a href="/police/online-crime-reporting/fraud.html">Fraud Reporting Information</a></li>
+          <li><a href="/police/online-crime-reporting/passport.html">Passport - Lost or Stolen</a></li>
+          <li><a href="/police/online-crime-reporting/QueryCitizenReport.html">Query about Submitted Internet Citizen Report</a></li>
+        </ul>
+
+        <h3>Non-Emergency call (604)-717-3321</h3>
+        <p>Examples of <a href="/police/contact/911.html">when to call the non-emergency line</a></p>
+
+        <h3>Crime Stoppers 1-800-222-8477</h3>
+        <p>Metro Vancouver Crime Stoppers will pay a reward of up to $2,000 for information leading to the arrest of a criminal, recovery of stolen property, seizure of illegal drugs or guns or denial of a fraudulent insurance claim.</p>
+
+        <h3>Report in Person</h3>
+        <p>Note: Community policing centers do not take police reports</p>
+        <p>Types of crimes you can report in person:</p>
+        <ul>
+          <li>theft from auto with no suspect and no evidence</li>
+          <li>theft of goods valued under $5000 with no suspect and no evidence</li>
+          <li>found or lost property</li>
+          <li>mischief to property valued under $5000 with no suspect and no evidence</li>
+          <li>incident reports with no suspect and no evidence</li>
+        </ul>
+
     </div>
 
   </body>
