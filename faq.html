@@ -3,12 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
-    <script>"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"</script>
-    <script>"https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     
     <title>Frequently Asked Questions</title>
     <style>
+    
       body {
        height: 100%;
        margin: 0 0 0 0;
@@ -16,18 +20,27 @@
        background-color: #A9AAB0;
       }
 
-      .content {
-        padding-left: 10px;
-        padding-top: 10px;
+      .ui.raised.very.padded.text.container.segment {
         margin-top: -14px;
         margin-left: 10%;
-        margin-right: 10%;
         background-color: #656774;
         height: 100%
       }
+      
+      .ui.text.container {
+        max-width: 80% !important;
+        
+      }
+      
+      .ui.inverted.menu {
+       background: #292f33
+     }
+     
+     
     </style>
   </head>
   <body>
+  
     <div class="ui inverted menu">
       <div class="header item">
         Stay Alert
@@ -47,40 +60,93 @@
     </div>
 
 
-    <div class="content">
-      <h1>Frequently Asked Questions</h1>
+    <div class="ui raised very padded text container segment">
       <div class="ui inverted segment">
+        <h1>Frequently Asked Questions</h1>
+        <h2>Crime Descriptions</h2>
         <div class="ui inverted accordion">
           <div class="title">
             <i class="dropdown icon"></i>
-            What is a dog?
+            Break and Enter (Commercial)
           </div>
           <div class="content">
-            <p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+            <p>Breaking and entering into a commercial property with intent to commit an offence.</p>
           </div>
           <div class="title">
             <i class="dropdown icon"></i>
-            What kinds of dogs are there?
+            Break and Enter (Residential)
           </div>
           <div class="content">
-            <p>There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they find to be compatible with their own lifestyle and desires from a companion.</p>
+            <p>Breaking and entering into a dwelling/house/apartment/garage with intent to commit an offence.</p>
           </div>
           <div class="title">
             <i class="dropdown icon"></i>
-            How do you acquire a dog?
+            Other Theft
           </div>
           <div class="content">
-            <p>Three common ways for a prospective owner to acquire a dog is from pet shops, private owners, or shelters.</p>
-            <p>A pet shop may be the most convenient way to buy a dog. Buying a dog from a private owner allows you to assess the pedigree and upbringing of your dog before choosing to take it home. Lastly, finding your dog from a shelter, helps give a good home to a dog who may not find one so readily.</p>
+            <p>Theft of property that includes personal items (purse, wallet, cellphone, laptop, etc.), bicycle, etc.</p>
           </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Mischief
+          </div>
+          <div class="content">
+            <p>A person commits mischief that willfully causes malicious destruction, damage, or defacement of property. This also includes any public mischief towards another person.</p>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Theft of Vehicle
+          </div>
+          <div class="content">
+            <p>Theft of a vehicle, motorcycle, or any motor vehicle.</p>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Theft From Vehicle
+          </div>
+          <div class="content">
+            <p>Theft of property from a vehicle.</p>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Theft of Bycicle
+          </div>
+          <div class="content">
+            <p>Theft of a bicycle.</p>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Vehicle Collision or Pedestrian Struck (injury)
+          </div>
+          <div class="content">
+            <p>Includes all categories of vehicle involved accidents with injuries. This includes pedestrian and cyclist involved incidents with injuries.</p>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Vehicle Collision or Pedestrian Struck (fatality)
+          </div>
+          <div class="content">
+            <p>Includes primarily pedestrian or cyclist struck and killed by a vehicle. It also includes vehicle to vehicle fatal accidents.</p>
+          </div>
+          <h2>Data</h2>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Source
+          </div>
+          <div class="content">
+            <p>All data is freely available and collected from Vancouver's Open Data Catalogue. It is updated every Sunday.</p>
+            <a href="https://data.vancouver.ca/datacatalogue/crime-data.htm">Open Data Catalogue</a>
         </div>
       </div>
     </div>
+    
     <script>
       /*<![CDATA[*/
       $(document).ready(function(){
         $('.ui.accordion').accordion();
       });
+      
+      
       /*]]>*/
     </script>
   </body>
