@@ -4,7 +4,6 @@
     <title>Stay Alert</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< Updated upstream
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -24,7 +23,6 @@
         display: inline-block;
         border-radius: 10px;
       }
-=======
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <style>
         /* Always set the map height explicitly to define the size of the div
@@ -38,7 +36,6 @@
           display: inline-block;
           border-radius: 10px;
         }
->>>>>>> Stashed changes
 
         html, body {
           height: 100%;
@@ -106,6 +103,11 @@
         FAQ
       </a>
     </div>
+    
+    <div id="floating-panel">
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button> 
+    </div>
+    
     <div id="map"></div>
 
     <div id="filter"><h1 class="ui header"><p>Filter Map </p></h1>
@@ -173,6 +175,10 @@
           zoom: 12
         });
       }
+      
+      $('.menu .item')
+        .tab()
+      ;
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&callback=initMap"
     async defer></script>
