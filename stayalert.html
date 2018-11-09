@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Stay Alert</title>
     <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
@@ -40,14 +41,19 @@
         text-align: left;
         border-radius: 10px;
         z-index: 1000;
+        border: 2px solid black;
       }
        
       .outercheck {
         margin-bottom: 5%;
         height: 4%;
       }
-
       
+      p {
+        color: white;
+      }
+
+    
       
     </style>
   </head>
@@ -70,6 +76,64 @@
   </a>
 </div>
     <div id="map"></div>
+    
+    <div id="filter"><h1 class="ui header"><p>Filter</p></h1>
+      <div class="outercheck">
+        <div class="ui checkbox">
+          <input type="checkbox" name="example">
+          <label><p>Break and Enter (Commercial)</p></label>
+        </div>
+      </div>
+      <div class="outercheck">
+        <div class="ui checkbox">
+          <input type="checkbox" name="example">
+          <label><p>Break and Enter (Residential)</p></label>
+        </div>
+      </div>
+      <div class="outercheck">
+        <div class="ui checkbox">
+          <input type="checkbox" name="example">
+          <label><p>Mischief</p></label>
+        </div>
+      </div>
+      <div class="outercheck">
+        <div class="ui checkbox">
+          <input type="checkbox" name="example">
+          <label><p>Other Theft</p></label>
+        </div>
+      </div>
+      <div class="outercheck">
+        <div class="ui checkbox">
+          <input type="checkbox" name="example">
+          <label><p>Theft From Vehicle</p></label>
+        </div>
+      </div>
+      <div class="outercheck">
+        <div class="ui checkbox">
+          <input type="checkbox" name="example">
+          <label><p>Theft of Vehicle</p></label>
+        </div>
+      </div>
+      <div class="outercheck">
+        <div class="ui checkbox">
+          <input type="checkbox" name="example">
+          <label><p>Theft of Bicycle</p></label>
+        </div>
+      </div>
+      <div class="outercheck">
+        <div class="ui checkbox">
+          <input type="checkbox" name="example">
+          <label><p>Vehicle Collision or Pedestrian Struck (injury)</p></label>
+        </div>
+      </div>
+      <div class="outercheck">
+        <div class="ui checkbox">
+          <input type="checkbox" name="example">
+          <label><p>Vehicle Collision or Pedestrian Struck (fatality)</p></label>
+        </div>
+      </div>
+    </div>
+    <a class="twitter-timeline" data-width="50%" data-height="310" href="https://twitter.com/VancouverPD?ref_src=twsrc%5Etfw">Tweets by VancouverPD</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script>
       var map;
       function initMap() {
@@ -81,64 +145,6 @@
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&callback=initMap"
     async defer></script>
-    <div id="filter"><h1 class="ui header">Filter</h1>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label>Break and Enter (Commercial)</label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label>Break and Enter (Residential)</label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label>Mischief</label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label>Other Theft</label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label>Theft From Vehicle</label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label>Theft of Vehicle</label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label>Theft of Bicycle</label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label>Vehicle Collision or Pedestrian Struck (injury)</label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label>Vehicle Collision or Pedestrian Struck (fatality)</label>
-        </div>
-      </div>
-    </div>
-    <a class="twitter-timeline" data-width="50%" data-height="350" href="https://twitter.com/VancouverPD?ref_src=twsrc%5Etfw">Tweets by VancouverPD</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    
     
  </body>
 </html>
