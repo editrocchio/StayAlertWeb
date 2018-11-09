@@ -3,17 +3,15 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
     <title>Report A Crime</title>
     <style>
-
-      a:visited {
-        color: purple;
-      }
-      a:link {
-        color: white;
-        text-decoration: underline;
-      }
 
       body {
        height: 100%;
@@ -22,51 +20,48 @@
        background-color: #A9AAB0;
       }
 
-      html {
-        height: auto;
-      }
-
-      .ui.inverted.menu {
-        background: #292f33
-      }
-
-      #content {
-        padding-left: 10px;
-        padding-top: 10px;
+      .ui.raised.very.padded.text.container.segment {
         margin-top: -14px;
         margin-left: 10%;
-        margin-right: 10%;
         background-color: #656774;
-        height: 100%;
-      }
-
-      #emergency {
-        text-align: center;
-        width: 80%;
-        margin-left: 10%;
-        height: 65px;
-        border: solid 2px red;
-        background-color: #ffcccc;
-        border-radius: 10px;
-      }
-
-      .emergencyText {
-        padding-left: 10px;
-        line-height: 5px;
-        font-size: 18pt;
-        color: red;
+        height: auto;
       }
 
       .ui.text.container {
         max-width: 80% !important;
+
       }
 
-      h3, h1, p, li {
-        color: white;
-      }
+      .ui.inverted.menu {
+       background: #292f33
+     }
+
+     #emergency {
+       text-align: center;
+       width: 80%;
+       margin-left: 10%;
+       margin-bottom: 5%;
+       height: 65px;
+       border: solid 2px red;
+       background-color: #ffcccc;
+       border-radius: 10px;
+     }
+
+     .emergencyText {
+       padding-left: 10px;
+       line-height: 5px;
+       font-size: 28pt;
+       color: red;
+     }
+
+     .ui.accordion .title:not(.ui) {
+       font-size: 1.6em;
+     }
+
     </style>
   </head>
   <body>
+
     <div class="ui inverted menu">
       <div class="header item">
         Stay Alert
@@ -85,39 +80,66 @@
       </a>
     </div>
 
-
     <div class="ui raised very padded text container segment" id="content">
-      <h1>Report Crimes</h1>
       <div class="ui raised very padded text container segment" id="emergency">
         <p class="emergencyText">Call 911 for an emergency!</p>
       </div>
-      <h3>Report Crimes Online</h3>
-      <p>To start reporting a crime online, see <a href="PoliceCitizenReporting_net" alt="report crime online">Online Citizen Reporting</a> to view reporting.
-      <hX><br/><br/>Other useful links:</hX>
-        <ul>
-          <li><a href="/police/online-crime-reporting/fraud.html">Fraud Reporting Information</a></li>
-          <li><a href="/police/online-crime-reporting/passport.html">Passport - Lost or Stolen</a></li>
-          <li><a href="/police/online-crime-reporting/QueryCitizenReport.html">Query about Submitted Internet Citizen Report</a></li>
-        </ul>
-
-        <h3>Non-Emergency call (604)-717-3321</h3>
-        <p>Examples of <a href="/police/contact/911.html">when to call the non-emergency line</a></p>
-
-        <h3>Crime Stoppers 1-800-222-8477</h3>
-        <p>Metro Vancouver Crime Stoppers will pay a reward of up to $2,000 for information leading to the arrest of a criminal, recovery of stolen property, seizure of illegal drugs or guns or denial of a fraudulent insurance claim.</p>
-
-        <h3>Report in Person</h3>
-        <p>Note: Community policing centers do not take police reports</p>
-        <p>Types of crimes you can report in person:</p>
-        <ul>
-          <li>theft from auto with no suspect and no evidence</li>
-          <li>theft of goods valued under $5000 with no suspect and no evidence</li>
-          <li>found or lost property</li>
-          <li>mischief to property valued under $5000 with no suspect and no evidence</li>
-          <li>incident reports with no suspect and no evidence</li>
-        </ul>
-
+      <div class="ui inverted segment">
+        <h1>Reporting a Crime</h1>
+        <div class="ui inverted accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Report Crimes Online
+          </div>
+          <div class="content">
+            <p>To start reporting a crime online, see <a href="PoliceCitizenReporting_net" alt="report crime online">Online Citizen Reporting</a> to view reporting.
+            <hX><br/><br/>Other useful links:</hX>
+              <ul>
+                <li><a href="/police/online-crime-reporting/fraud.html">Fraud Reporting Information</a></li>
+                <li><a href="/police/online-crime-reporting/passport.html">Passport - Lost or Stolen</a></li>
+                <li><a href="/police/online-crime-reporting/QueryCitizenReport.html">Query about Submitted Internet Citizen Report</a></li>
+              </ul>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Non-Emergency call (604)-717-3321
+          </div>
+          <div class="content">
+            <p>Examples of <a href="/police/contact/911.html">when to call the non-emergency line</a></p>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Crime Stoppers 1-800-222-8477
+          </div>
+          <div class="content">
+            <p>Tips can remain anonymous. Metro Vancouver Crime Stoppers will pay a reward of up to $2,000 for information leading to the arrest of a criminal, recovery of stolen property, seizure of illegal drugs or guns or denial of a fraudulent insurance claim.</p>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            Report in Person
+          </div>
+          <div class="content">
+            <p>Note: Community policing centers do not take police reports</p>
+            <p>Types of crimes you can report in person:</p>
+            <ul>
+              <li>theft from auto with no suspect and no evidence</li>
+              <li>theft of goods valued under $5000 with no suspect and no evidence</li>
+              <li>found or lost property</li>
+              <li>mischief to property valued under $5000 with no suspect and no evidence</li>
+              <li>incident reports with no suspect and no evidence</li>
+            </ul>
+          </div>
+      </div>
     </div>
 
+    <script>
+      /*<![CDATA[*/
+      $(document).ready(function(){
+        $('.ui.accordion').accordion({ exclusive: false});
+      });
+
+
+      /*]]>*/
+    </script>
   </body>
 </html>
