@@ -12,7 +12,9 @@
       }
       a:link {
         color: white;
+        text-decoration: underline;
       }
+
       body {
        height: 100%;
        margin: 0 0 0 0;
@@ -20,21 +22,25 @@
        background-color: #A9AAB0;
       }
 
+      html {
+        height: auto;
+      }
+
       .ui.inverted.menu {
         background: #292f33
       }
-      
-      .content {
+
+      #content {
         padding-left: 10px;
         padding-top: 10px;
         margin-top: -14px;
         margin-left: 10%;
         margin-right: 10%;
         background-color: #656774;
-        height: 100%
+        height: 100%;
       }
 
-      .emergency {
+      #emergency {
         text-align: center;
         width: 80%;
         margin-left: 10%;
@@ -46,10 +52,17 @@
 
       .emergencyText {
         padding-left: 10px;
-        line-height: 65px;
+        line-height: 5px;
         font-size: 18pt;
-
         color: red;
+      }
+
+      .ui.text.container {
+        max-width: 80% !important;
+      }
+
+      h3, h1, p, li {
+        color: white;
       }
     </style>
   </head>
@@ -73,9 +86,9 @@
     </div>
 
 
-    <div class="content">
+    <div class="ui raised very padded text container segment" id="content">
       <h1>Report Crimes</h1>
-      <div class="emergency">
+      <div class="ui raised very padded text container segment" id="emergency">
         <p class="emergencyText">Call 911 for an emergency!</p>
       </div>
       <h3>Report Crimes Online</h3>
