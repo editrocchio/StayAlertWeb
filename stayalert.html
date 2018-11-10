@@ -5,6 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-firestore.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAu57uZOerao8kNtGDqXPtyk_7UynVM9P0",
+        authDomain: "stayalert-85212.firebaseapp.com",
+        databaseURL: "https://stayalert-85212.firebaseio.com",
+        projectId: "stayalert-85212",
+        storageBucket: "stayalert-85212.appspot.com",
+        messagingSenderId: "312308869743"
+      };
+      firebase.initializeApp(config);
+    </script>
+
     <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -103,11 +123,11 @@
         FAQ
       </a>
     </div>
-    
+
     <div id="floating-panel">
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button> 
+      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
     </div>
-    
+
     <div id="map"></div>
 
     <div id="filter"><h1 class="ui header"><p>Filter Map </p></h1>
@@ -166,6 +186,7 @@
         </div>
       </div>
     </div>
+
     <a class="twitter-timeline" data-width="50%" data-height="310" data-theme="dark" data-link-color="#F5F8FA" data-chrome="nofooter" href="https://twitter.com/VancouverPD?ref_src=twsrc%5Etfw">Tweets by VancouverPD</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script>
       var map;
@@ -175,13 +196,37 @@
           zoom: 12
         });
       }
-      
+
       $('.menu .item')
         .tab()
       ;
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&callback=initMap"
     async defer></script>
+
+    <script>
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    // Disable deprecated features
+    db.settings({
+      timestampsInSnapshots: true
+    });
+
+    var docRef = db.collection("new_data").doc("test");
+
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+    </script>
+
 
  </body>
 </html>
