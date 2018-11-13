@@ -29,18 +29,6 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 </head>
-<style>
-  /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 80%;
-        width: 50%;
-        margin-left: 10%;
-        margin-bottom: 2%;
-        border: 2px solid black;
-        display: inline-block;
-        border-radius: 10px;
-      }
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <style>
         /* Always set the map height explicitly to define the size of the div
@@ -88,6 +76,22 @@
           border-radius: 10px;
           z-index: 1000;
           border: 2px solid black;
+        }
+
+        .about {
+          width: 28%;
+          height: 50%;
+          background-color: #292f33;
+          float: right;
+          margin: 0 10% 0 0;
+          padding-left: 10px;
+          padding-top: 10px;
+          text-align: left;
+          border-radius: 10px;
+          z-index: 1000;
+          border: 2px solid black;
+          position: relative;
+          bottom: 230px;
         }
 
         .outercheck {
@@ -201,14 +205,19 @@
         </label>
       </div>
     </div>
-    <div class="outercheck">
-      <div class="ui checkbox">
+    <div class="outercheck"><div class="ui checkbox">
         <input type="checkbox" name="example">
         <label>
           <p>Vehicle Collision or Pedestrian Struck (fatality)</p>
         </label>
       </div>
     </div>
+  </div>
+
+  <div class="about">
+    <h1 class="ui header">
+      <p>About Stay Alert</p>
+    </h1>
   </div>
 
   <div id="twitterDiv">
