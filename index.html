@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Stay Alert</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
-    <!-- Firebase App is always required and must be first -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-app.js"></script>
 
-    <!-- Add additional services that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-firestore.js"></script>
+<head>
+  <title>Stay Alert</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+  <!-- Firebase App is always required and must be first -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-app.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
-    <script>
-      // Initialize Firebase
+  <!-- Add additional services that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-firestore.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+  <script>
+    // Initialize Firebase
       var config = {
         apiKey: "AIzaSyAu57uZOerao8kNtGDqXPtyk_7UynVM9P0",
         authDomain: "stayalert-85212.firebaseapp.com",
@@ -25,14 +26,11 @@
       firebase.initializeApp(config);
     </script>
 
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-  </head>
-  <style>
-      /* Always set the map height explicitly to define the size of the div
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+</head>
+<style>
+  /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
         height: 80%;
@@ -69,9 +67,13 @@
         }
 
         .twitter-timeline {
-          border: 2px solid black;
           margin-left: 10%;
+          padding-bottom: 200px;
           border-radius: 1%;
+        }
+
+        #twitterDiv {
+          margin-bottom: 8%;
         }
 
         #filter {
@@ -104,107 +106,134 @@
           }
         }
       </style>
-  </head>
-  <body>
-    <div class="ui inverted menu">
-      <div class="header item">
-        Stay Alert
-      </div>
-      <a class="item active" href="index.html">
-        Map
-      </a>
-      <a class="item" href="database.html">
-        Database
-      </a>
-      <a class="item" href="ReportACrime.html">
-        Report a Crime
-      </a>
-      <a class="item" href="faq.html">
-        FAQ
-      </a>
+</head>
+
+<body>
+  <div class="ui inverted menu">
+    <div class="header item">
+      Stay Alert
     </div>
+    <a class="item active" href="index.html">
+      Map
+    </a>
+    <a class="item" href="database.html">
+      Database
+    </a>
+    <a class="item" href="ReportACrime.html">
+      Report a Crime
+    </a>
+    <a class="item" href="faq.html">
+      FAQ
+    </a>
+  </div>
 
-    <div id="floating-panel">
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-    </div>
+  <div id="floating-panel">
+    <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+  </div>
 
-    <div id="map"></div>
+  <div id="map"></div>
 
-    <div id="filter"><h1 class="ui header"><p>Filter Map </p></h1>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label><p>Break and Enter (Commercial)</p></label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label><p>Break and Enter (Residential)</p></label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label><p>Mischief</p></label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label><p>Other Theft</p></label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label><p>Theft From Vehicle</p></label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label><p>Theft of Vehicle</p></label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label><p>Theft of Bicycle</p></label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label><p>Vehicle Collision or Pedestrian Struck (injury)</p></label>
-        </div>
-      </div>
-      <div class="outercheck">
-        <div class="ui checkbox">
-          <input type="checkbox" name="example">
-          <label><p>Vehicle Collision or Pedestrian Struck (fatality)</p></label>
-        </div>
+  <div id="filter">
+    <h1 class="ui header">
+      <p>Filter Map </p>
+    </h1>
+    <div class="outercheck">
+      <div class="ui checkbox">
+        <input type="checkbox" name="example">
+        <label>
+          <p>Break and Enter (Commercial)</p>
+        </label>
       </div>
     </div>
+    <div class="outercheck">
+      <div class="ui checkbox">
+        <input type="checkbox" name="example">
+        <label>
+          <p>Break and Enter (Residential)</p>
+        </label>
+      </div>
+    </div>
+    <div class="outercheck">
+      <div class="ui checkbox">
+        <input type="checkbox" name="example">
+        <label>
+          <p>Mischief</p>
+        </label>
+      </div>
+    </div>
+    <div class="outercheck">
+      <div class="ui checkbox">
+        <input type="checkbox" name="example">
+        <label>
+          <p>Other Theft</p>
+        </label>
+      </div>
+    </div>
+    <div class="outercheck">
+      <div class="ui checkbox">
+        <input type="checkbox" name="example">
+        <label>
+          <p>Theft From Vehicle</p>
+        </label>
+      </div>
+    </div>
+    <div class="outercheck">
+      <div class="ui checkbox">
+        <input type="checkbox" name="example">
+        <label>
+          <p>Theft of Vehicle</p>
+        </label>
+      </div>
+    </div>
+    <div class="outercheck">
+      <div class="ui checkbox">
+        <input type="checkbox" name="example">
+        <label>
+          <p>Theft of Bicycle</p>
+        </label>
+      </div>
+    </div>
+    <div class="outercheck">
+      <div class="ui checkbox">
+        <input type="checkbox" name="example">
+        <label>
+          <p>Vehicle Collision or Pedestrian Struck (injury)</p>
+        </label>
+      </div>
+    </div>
+    <div class="outercheck">
+      <div class="ui checkbox">
+        <input type="checkbox" name="example">
+        <label>
+          <p>Vehicle Collision or Pedestrian Struck (fatality)</p>
+        </label>
+      </div>
+    </div>
+  </div>
 
-    <a class="twitter-timeline" data-width="50%" data-height="310" data-theme="dark" data-link-color="#F5F8FA" data-chrome="nofooter" href="https://twitter.com/VancouverPD?ref_src=twsrc%5Etfw">Tweets by VancouverPD</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 49.246292, lng: -123.116226},
-          zoom: 12
-        });
-      }
+  <div id="twitterDiv">
+    <a class="twitter-timeline" data-width="50%" data-height="500" data-theme="dark" data-link-color="#F5F8FA" data-chrome="nofooter" href="https://twitter.com/VancouverPD?ref_src=twsrc%5Etfw">Tweets by VancouverPD</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
+  <script>
+    var map;
 
-      $('.menu .item')
-        .tab()
-      ;
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&callback=initMap"
-    async defer></script>
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+          lat: 49.246292,
+          lng: -123.116226
+        },
+        zoom: 12
+      });
+    }
 
-    <script>
+    $('.menu .item')
+      .tab();
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&callback=initMap" async defer></script>
+
+  <script>
     // Initialize Cloud Firestore through Firebase
     var db = firebase.firestore();
 
@@ -216,17 +245,18 @@
     var docRef = db.collection("new_data").doc("test");
 
     docRef.get().then(function(doc) {
-        if (doc.exists) {
-            console.log("Document data:", doc.data());
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
+      if (doc.exists) {
+        console.log("Document data:", doc.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+      }
     }).catch(function(error) {
-        console.log("Error getting document:", error);
+      console.log("Error getting document:", error);
     });
-    </script>
+  </script>
 
 
- </body>
+</body>
+
 </html>
