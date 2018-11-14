@@ -256,7 +256,7 @@
       timestampsInSnapshots: true
     });
 
-    var docRef = db.collection("new_data").doc("test");
+    var docRef = db.collection("new_data").doc("neighbourhoods");
 
   </script>
 
@@ -264,11 +264,13 @@
     var map;
     var locations = [];
 
-    function setMarkers(crime, address, latitude, longitude) {
+    function setMarkers(crime, address, month, day, year, time, latitude, longitude) {
       locations.push({
         lat: latitude,
         lng: longitude,
-        info: "<h2>Crime:</h2> " + crime + "<h2>Address:</h2> " + address
+        info: "<h3>Crime:</h3> " + crime + "<h3>Address:</h3> " + address
+          + "<h3>Date:</h3>" + month + " " + day + " " + year + "<h3>Time:</h3>"
+          + time
       });
 
     }
@@ -287,11 +289,13 @@
 
         if (doc.exists) {
           data = doc.data();
-          var dt = data[Object.keys(data)[0]];
+          var dt = data[Object.keys(data)[1]];
 
           for (n = 0; n < dt.length; n++) {
             var crimeObject = dt[n];
-            setMarkers(crimeObject["Crime"], crimeObject["Address"],
+            setMarkers(crimeObject["crime"], crimeObject["hundredBlockAddress"],
+              crimeObject["monthOfCrime"], crimeObject["dayOfCrime"],
+              crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"],
               crimeObject["latitude"], crimeObject["longitude"]);
 
           }
@@ -345,7 +349,7 @@
 
         $('.menu .item')
           .tab();
-    
+
   </script>
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&libraries=visualization&callback=initMap" async defer></script>
