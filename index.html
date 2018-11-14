@@ -255,10 +255,11 @@
 
     docRef.get().then(function(doc) {
       if (doc.exists) {
-        console.log("Document data:", doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
+        var d = doc.data();
+        var arb = d[Object.keys(d)[0]];
+        var firstCrime = arb[0];
+        var crime = firstCrime[Object.keys(firstCrime)[1]];
+        console.log(crime);
       }
     }).catch(function(error) {
       console.log("Error getting document:", error);
