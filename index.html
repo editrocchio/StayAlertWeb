@@ -29,9 +29,9 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 </head>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
-    <style>
-        /* Always set the map height explicitly to define the size of the div
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+<style>
+  /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
         #map {
           height: 80%;
@@ -218,7 +218,8 @@
         </label>
       </div>
     </div>
-    <div class="outercheck"><div class="ui checkbox">
+    <div class="outercheck">
+      <div class="ui checkbox">
         <input type="checkbox" name="example">
         <label>
           <p>Vehicle Collision or Pedestrian Struck (fatality)</p>
@@ -242,6 +243,8 @@
   </div>
   <script>
     var map;
+    var marker;
+    var locations = [];
 
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
@@ -251,29 +254,59 @@
         },
         zoom: 12
       });
+/*
+      var infoWin = new google.maps.InfoWindow();
+      var markerCluster = new MarkerClusterer(map, markers, {
+        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+      });
+
+      // Add some markers to the map.
+      // Note: The code uses the JavaScript Array.prototype.map() method to
+      // create an array of markers based on a given "locations" array.
+      // The map() method here has nothing to do with the Google Maps API.
+      markers = locations.map(function(location, i) {
+      var marker = new google.maps.Marker({
+        position: location
+      });
+      google.maps.event.addListener(marker, 'click', function(evt) {
+        infoWin.setContent(location.info);
+        infoWin.open(map, marker);
+      })
+      return marker;
+      });
+
+      function setMarkers(crime, address, date, time, latitude, longitude) {
+
+        locations.push({
+          lat: latitude,
+          lng: longitude,
+          info: crime
+        })
+
+      } */
 
       heatmap = new google.maps.visualization.HeatmapLayer({
-          data: getPoints(),
-          map: map
-        });
+        data: getPoints(),
+        map: map
+      });
     }
 
     function toggleHeatmap() {
-          heatmap.setMap(heatmap.getMap() ? null : map);
+      heatmap.setMap(heatmap.getMap() ? null : map);
     }
 
     function getPoints() {
-           return [
-             new google.maps.LatLng(37.782551, -122.445368),
-             new google.maps.LatLng(37.782745, -122.444586),
-           ];
-         }
+      return [
+        new google.maps.LatLng(37.782551, -122.445368),
+        new google.maps.LatLng(37.782745, -122.444586),
+      ];
+    }
+
 
     $('.menu .item')
       .tab();
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&libraries=visualization&callback=initMap" async defer></script>
-
 
 
   <script>
@@ -288,12 +321,28 @@
     var docRef = db.collection("new_data").doc("test");
 
     docRef.get().then(function(doc) {
+      var data;
+      var index = 0;
+
       if (doc.exists) {
-        var d = doc.data();
-        var arb = d[Object.keys(d)[0]];
-        var firstCrime = arb[0];
-        var crime = firstCrime[Object.keys(firstCrime)[1]];
-        console.log(crime);
+        data = doc.data();
+
+        for(n in data) {
+          var neigh = data[Object.keys(data)[index]];
+          console.log(neigh);
+          index++;
+          for(n=0; n<neigh.length; n++) {
+            var crimeObject = neigh[n];
+            index = 0;
+            for(dataPiece in crimeObject) {
+              var data = crimeObject[Object.keys(crimeObject)[index]];
+              index++;
+              console.log(data);
+            }
+          }
+        }
+
+      //  setMarkers(crime);
       }
     }).catch(function(error) {
       console.log("Error getting document:", error);
