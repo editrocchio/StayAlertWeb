@@ -55,13 +55,18 @@
         }
 
         .twitter-timeline {
-          margin-left: 10%;
+          margin-left: 0;
           padding-bottom: 200px;
           border-radius: 1%;
         }
 
         #twitterDiv {
           margin-bottom: 8%;
+          border: 2px solid black;
+          width: 50%;
+          height: 504px;
+          margin-left: 10%;
+          border-radius: 10px;
         }
 
         #filter {
@@ -103,9 +108,17 @@
           color: white;
         }
 
+        #aboutText {
+          font-size: 11pt;
+        }
+
         @media screen and (max-width: 1100px) {
 
           label p {
+            font-size: 8pt;
+          }
+
+          #aboutText {
             font-size: 8pt;
           }
         }
@@ -218,10 +231,13 @@
     <h1 class="ui header">
       <p>About Stay Alert</p>
     </h1>
+    <label>
+      <p id="aboutText">Stay alert is the greatest thing ever</p>
+    </label>
   </div>
 
   <div id="twitterDiv">
-    <a class="twitter-timeline" data-width="50%" data-height="500" data-theme="dark" data-link-color="#F5F8FA" data-chrome="nofooter" href="https://twitter.com/VancouverPD?ref_src=twsrc%5Etfw">Tweets by VancouverPD</a>
+    <a class="twitter-timeline" data-width="100%" data-height="500" data-theme="dark" data-link-color="#F5F8FA" data-chrome="nofooter" href="https://twitter.com/VancouverPD?ref_src=twsrc%5Etfw">Tweets by VancouverPD</a>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   </div>
   <script>
@@ -235,12 +251,30 @@
         },
         zoom: 12
       });
+
+      heatmap = new google.maps.visualization.HeatmapLayer({
+          data: getPoints(),
+          map: map
+        });
     }
+
+    function toggleHeatmap() {
+          heatmap.setMap(heatmap.getMap() ? null : map);
+    }
+
+    function getPoints() {
+           return [
+             new google.maps.LatLng(37.782551, -122.445368),
+             new google.maps.LatLng(37.782745, -122.444586),
+           ];
+         }
 
     $('.menu .item')
       .tab();
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&callback=initMap" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&libraries=visualization&callback=initMap" async defer></script>
+
+
 
   <script>
     // Initialize Cloud Firestore through Firebase
