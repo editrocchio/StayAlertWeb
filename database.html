@@ -94,20 +94,39 @@
             for (n = 0; n < dt.length; n++) {
               var crimeObject = dt[n];
 
-              content.push(crimeObject);
-
+              searchableItems(crimeObject["crime"], crimeObject["hundredBlockAddress"],
+              crimeObject["monthOfCrime"], crimeObject["dayOfCrime"],
+              crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"]);
             }
+
           } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");
           }
+
+          $(document).ready(function() {
+          $('.ui.search')
+            .search({
+              source: content,
+              searchFields: [
+                'title', 'description'
+              ]
+            });
+          });
+
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
 
-      function searchAbleItems() {
 
-      }
+      function searchableItems(crime, address, month, day, year, time) {
+        content.push({
+          title: crime,
+          description: "<div>Address: " + address + "</div>"
+          + "<div>Date: " + month + " " + day + " " + year + "</div>"
+          + "<div>Time: " + time + "</div>"
+        });
+      };
 
   </script>
 
@@ -126,17 +145,6 @@
     </div>
   </div>
 
-  <script>
-
-  $('.ui.search')
-  .search({
-    source : content,
-    searchFields : [
-      'title', 'description'
-    ]
-  })
-;
-  </script>
 
 </body>
 
