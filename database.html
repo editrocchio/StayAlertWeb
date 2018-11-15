@@ -5,6 +5,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-app.js"></script>
+  <!-- Add additional services that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAu57uZOerao8kNtGDqXPtyk_7UynVM9P0",
+        authDomain: "stayalert-85212.firebaseapp.com",
+        databaseURL: "https://stayalert-85212.firebaseio.com",
+        projectId: "stayalert-85212",
+        storageBucket: "stayalert-85212.appspot.com",
+        messagingSenderId: "312308869743"
+      };
+      firebase.initializeApp(config);
+    </script>
+
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 
@@ -56,6 +73,44 @@
     </a>
   </div>
 
+  <script>
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    var content = [];
+
+    // Disable deprecated features
+    db.settings({
+      timestampsInSnapshots: true
+    });
+
+    var docRef = db.collection("new_data").doc("neighbourhoods");
+
+      docRef.get().then(function(doc) {
+          if (doc.exists) {
+            var data = doc.data();
+            var dt = data[Object.keys(data)[1]];
+
+            for (n = 0; n < dt.length; n++) {
+              var crimeObject = dt[n];
+
+              content.push(crimeObject);
+
+            }
+          } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+          }
+      }).catch(function(error) {
+          console.log("Error getting document:", error);
+      });
+
+      function searchAbleItems() {
+
+      }
+
+  </script>
+
 
   <div class="ui raised very padded text container segment">
     <div class="ui raised very padded text container segment" id="inner">
@@ -70,10 +125,19 @@
       </div>
     </div>
   </div>
+
   <script>
 
-
+  $('.ui.search')
+  .search({
+    source : content,
+    searchFields : [
+      'title', 'description'
+    ]
+  })
+;
   </script>
+
 </body>
 
 </html>
