@@ -148,7 +148,7 @@
   </div>
 
   <div id="floating-panel">
-    <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+    <button id="heatmap" onclick="toggleHeatmap()">Toggle Heatmap</button>
   </div>
 
   <div id="map"></div>
@@ -159,7 +159,7 @@
     </h1>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="comm">
+        <input type="checkbox" name="example" checked="" id="Break and Enter (Commercial)">
         <label>
           <p>Break and Enter (Commercial)</p>
         </label>
@@ -167,7 +167,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Residential">
         <label>
           <p>Break and Enter (Residential)</p>
         </label>
@@ -175,7 +175,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Mischief">
         <label>
           <p>Mischief</p>
         </label>
@@ -183,7 +183,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Other">
         <label>
           <p>Other Theft</p>
         </label>
@@ -191,7 +191,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Theft from">
         <label>
           <p>Theft From Vehicle</p>
         </label>
@@ -199,7 +199,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Theft of Vehicle">
         <label>
           <p>Theft of Vehicle</p>
         </label>
@@ -207,7 +207,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Theft of Bicycle">
         <label>
           <p>Theft of Bicycle</p>
         </label>
@@ -215,17 +215,9 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Collision">
         <label>
           <p>Vehicle Collision or Pedestrian Struck (injury)</p>
-        </label>
-      </div>
-    </div>
-    <div class="outercheck">
-      <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
-        <label>
-          <p>Vehicle Collision or Pedestrian Struck (fatality)</p>
         </label>
       </div>
     </div>
@@ -263,6 +255,10 @@
     var heatMapCoords = [];
     var markers;
     var markerCluster;
+    var crimeObject;
+    var dt;
+    var infoWin;
+    var checkedList = [];
 
     function setMarkers(crime, address, month, day, year, time, latitude, longitude) {
       locations.push({
@@ -288,47 +284,44 @@
 
         if (doc.exists) {
           data = doc.data();
-          var dt = data[Object.keys(data)[1]];
+          dt = data[Object.keys(data)[1]];
+
+          setMCluster();
 
           for (n = 0; n < dt.length; n++) {
-            var crimeObject = dt[n];
-            setMarkers(crimeObject["crime"], crimeObject["hundredBlockAddress"],
-              crimeObject["monthOfCrime"], crimeObject["dayOfCrime"],
-              crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"],
-              crimeObject["latitude"], crimeObject["longitude"]);
-
+            crimeObject = dt[n];
             heatMapCoords.push(new google.maps.LatLng(crimeObject["latitude"], crimeObject["longitude"]));
           }
-
-          // Add some markers to the map.
-          // Note: The code uses the JavaScript Array.prototype.map() method to
-          // create an array of markers based on a given "locations" array.
-          // The map() method here has nothing to do with the Google Maps API.
-          markers = locations.map(function(location, i) {
-            var marker = new google.maps.Marker({
-              position: location
-            });
-            google.maps.event.addListener(marker, 'click', function(evt) {
-              infoWin.setContent(location.info);
-              infoWin.open(map, marker);
-            })
-            return marker;
-          });
-
-          // markerCluster.setMarkers(markers);
-          // Add a marker clusterer to manage the markers.
-          markerCluster = new MarkerClusterer(map, markers, {
-            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-            maxZoom: 18
-          });
-
         }
+
+        $(document).ready(function() {
+          $('.menu .item')
+            .tab();
+
+          $('.ui.checkbox').checkbox({
+            onChecked: function() {
+              var checkedCrime = $(this).attr('id');
+              console.log(checkedCrime);
+
+            },
+
+            onUnchecked: function() {
+              markerCluster.clearMarkers();
+              crimeObject = dt[n];
+              checkedList.push($(this).attr('id'))
+              for(i=0;i<checkedList.length; i++) {
+                console.log(checkedList[i]);
+              }
+              setFilteredMCluster();
+            }
+          });
+        });
 
       }).catch(function(error) {
         console.log("Error getting document:", error);
       });
 
-      var infoWin = new google.maps.InfoWindow();
+      infoWin = new google.maps.InfoWindow();
 
       heatmap = new google.maps.visualization.HeatmapLayer({
         data: getPoints(),
@@ -345,12 +338,83 @@
 
     }
 
+    function setMCluster() {
+      for (n = 0; n < dt.length; n++) {
+        crimeObject = dt[n];
+        setMarkers(crimeObject["crime"], crimeObject["hundredBlockAddress"],
+          crimeObject["monthOfCrime"], crimeObject["dayOfCrime"],
+          crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"],
+          crimeObject["latitude"], crimeObject["longitude"]);
+
+      }
+
+      // Add some markers to the map.
+      // Note: The code uses the JavaScript Array.prototype.map() method to
+      // create an array of markers based on a given "locations" array.
+      // The map() method here has nothing to do with the Google Maps API.
+      markers = locations.map(function(location, i) {
+        var marker = new google.maps.Marker({
+          position: location
+        });
+        google.maps.event.addListener(marker, 'click', function(evt) {
+          infoWin.setContent(location.info);
+          infoWin.open(map, marker);
+        })
+        return marker;
+      });
+
+      // markerCluster.setMarkers(markers);
+      // Add a marker clusterer to manage the markers.
+      markerCluster = new MarkerClusterer(map, markers, {
+        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+        maxZoom: 18
+      });
+    }
+
+    function setFilteredMCluster() {
+      var newLocations = [];
+      for(checked in checkedList) {
+
+        for (n = 0; n < dt.length; n++) {
+          crimeObject = dt[n];
+          if(!checked == crimeObject["crime"]) {
+            newLocations.push({
+              lat: crimeObject["latitude"],
+              lng: crimeObject["longitude"],
+              info: "<h3>Crime:</h3> " + crimeObject["crime"] + "<h3>Address:</h3> " + crimeObject["hundredBlockAddress"] +
+                "<h3>Date:</h3>" + crimeObject["monthOfCrime"] + " " + crimeObject["dayOfCrime"] + " " + crimeObject["yearOfCrime"] + "<h3>Time:</h3>" +
+                crimeObject["timeOfCrimeTwentyFourHour"]
+            });
+          }
+        }
+    }
+
+      // Add some markers to the map.
+      // Note: The code uses the JavaScript Array.prototype.map() method to
+      // create an array of markers based on a given "locations" array.
+      // The map() method here has nothing to do with the Google Maps API.
+      markers = newLocations.map(function(location, i) {
+        var marker = new google.maps.Marker({
+          position: location
+        });
+        google.maps.event.addListener(marker, 'click', function(evt) {
+          infoWin.setContent(location.info);
+          infoWin.open(map, marker);
+        })
+        return marker;
+      });
+
+      // markerCluster.setMarkers(markers);
+      // Add a marker clusterer to manage the markers.
+      markerCluster = new MarkerClusterer(map, markers, {
+        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+        maxZoom: 18
+      });
+    }
+
     function getPoints() {
       return heatMapCoords;
     }
-
-    $('.menu .item')
-      .tab();
   </script>
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRGQFuNnBRcxX1-kYEtPNfrMxo6lMjNfk&libraries=visualization&callback=initMap" async defer></script>
