@@ -159,7 +159,7 @@
     </h1>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="Break and Enter (Commercial)">
+        <input type="checkbox" name="example" checked="" id="Commercial">
         <label>
           <p>Break and Enter (Commercial)</p>
         </label>
@@ -167,7 +167,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="Residential">
+        <input type="checkbox" name="example" checked="" >
         <label>
           <p>Break and Enter (Residential)</p>
         </label>
@@ -175,7 +175,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="Mischief">
+        <input type="checkbox" name="example" checked="">
         <label>
           <p>Mischief</p>
         </label>
@@ -183,7 +183,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="Other">
+        <input type="checkbox" name="example" checked="">
         <label>
           <p>Other Theft</p>
         </label>
@@ -191,7 +191,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="Theft from">
+        <input type="checkbox" name="example" checked="">
         <label>
           <p>Theft From Vehicle</p>
         </label>
@@ -199,7 +199,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="Theft of Vehicle">
+        <input type="checkbox" name="example" checked="">
         <label>
           <p>Theft of Vehicle</p>
         </label>
@@ -207,7 +207,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="Theft of Bicycle">
+        <input type="checkbox" name="example" checked="">
         <label>
           <p>Theft of Bicycle</p>
         </label>
@@ -215,7 +215,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="Collision">
+        <input type="checkbox" name="example" checked="">
         <label>
           <p>Vehicle Collision or Pedestrian Struck (injury)</p>
         </label>
@@ -258,7 +258,6 @@
     var crimeObject;
     var dt;
     var infoWin;
-    var checkedList = [];
 
     function setMarkers(crime, address, month, day, year, time, latitude, longitude) {
       locations.push({
@@ -306,13 +305,10 @@
             },
 
             onUnchecked: function() {
+
               markerCluster.clearMarkers();
               crimeObject = dt[n];
-              checkedList.push($(this).attr('id'))
-              for(i=0;i<checkedList.length; i++) {
-                console.log(checkedList[i]);
-              }
-              setFilteredMCluster();
+              setFilteredMCluster($(this).attr('id'));
             }
           });
         });
@@ -330,10 +326,14 @@
     }
 
     function toggleHeatmap() {
+      markerCluster.clearMarkers();
+      locations = [];
       if (heatmap.getMap()) {
         heatmap.setMap(null);
+        setMCluster();
       } else {
         heatmap.setMap(map);
+
       }
 
     }
@@ -371,23 +371,21 @@
       });
     }
 
-    function setFilteredMCluster() {
+    function setFilteredMCluster(id) {
       var newLocations = [];
-      for(checked in checkedList) {
-
-        for (n = 0; n < dt.length; n++) {
-          crimeObject = dt[n];
-          if(!checked == crimeObject["crime"]) {
-            newLocations.push({
-              lat: crimeObject["latitude"],
-              lng: crimeObject["longitude"],
-              info: "<h3>Crime:</h3> " + crimeObject["crime"] + "<h3>Address:</h3> " + crimeObject["hundredBlockAddress"] +
-                "<h3>Date:</h3>" + crimeObject["monthOfCrime"] + " " + crimeObject["dayOfCrime"] + " " + crimeObject["yearOfCrime"] + "<h3>Time:</h3>" +
-                crimeObject["timeOfCrimeTwentyFourHour"]
-            });
-          }
+      for (n = 0; n < dt.length; n++) {
+        crimeObject = dt[n];
+        if(!crimeObject["crime"].includes(id)) {
+          newLocations.push({
+            lat: crimeObject["latitude"],
+            lng: crimeObject["longitude"],
+            info: "<h3>Crime:</h3> " + crimeObject["crime"] + "<h3>Address:</h3> " + crimeObject["hundredBlockAddress"] +
+              "<h3>Date:</h3>" + crimeObject["monthOfCrime"] + " " + crimeObject["dayOfCrime"] + " " + crimeObject["yearOfCrime"] + "<h3>Time:</h3>" +
+              crimeObject["timeOfCrimeTwentyFourHour"]
+          });
         }
-    }
+
+      }
 
       // Add some markers to the map.
       // Note: The code uses the JavaScript Array.prototype.map() method to
