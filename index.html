@@ -159,7 +159,7 @@
     </h1>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" id="Commercial">
+        <input type="checkbox" name="example" checked="" id="Break and Enter Commercial">
         <label>
           <p>Break and Enter (Commercial)</p>
         </label>
@@ -167,7 +167,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="" >
+        <input type="checkbox" name="example" checked="" id="Break and Enter Residential/Other">
         <label>
           <p>Break and Enter (Residential)</p>
         </label>
@@ -175,7 +175,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Mischief">
         <label>
           <p>Mischief</p>
         </label>
@@ -183,7 +183,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Other Theft">
         <label>
           <p>Other Theft</p>
         </label>
@@ -191,7 +191,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Theft from Vehicle">
         <label>
           <p>Theft From Vehicle</p>
         </label>
@@ -199,7 +199,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Theft of Vehicle">
         <label>
           <p>Theft of Vehicle</p>
         </label>
@@ -207,7 +207,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Theft of Bicycle">
         <label>
           <p>Theft of Bicycle</p>
         </label>
@@ -215,7 +215,7 @@
     </div>
     <div class="outercheck">
       <div class="ui checkbox">
-        <input type="checkbox" name="example" checked="">
+        <input type="checkbox" name="example" checked="" id="Vehicle Collision or Pedestrian Struck (with Injury)">
         <label>
           <p>Vehicle Collision or Pedestrian Struck (injury)</p>
         </label>
@@ -258,6 +258,9 @@
     var crimeObject;
     var dt;
     var infoWin;
+    var checkedUnchecked = {"Break and Enter Commercial":true, "Break and Enter Residential/Other":true,
+      "Mischief":true, "Other Theft":true, "Theft from Vehicle":true, "Theft of Vehicle":true,
+      "Theft of Bicycle":true,"Vehicle Collision or Pedestrian Struck (with Injury)":true};
 
     function setMarkers(crime, address, month, day, year, time, latitude, longitude) {
       locations.push({
@@ -299,16 +302,17 @@
 
           $('.ui.checkbox').checkbox({
             onChecked: function() {
-              var checkedCrime = $(this).attr('id');
-              console.log(checkedCrime);
-
+              var c = $(this).attr('id')
+              checkedUnchecked[c] = true;
+              markerCluster.clearMarkers();
+              setMCluster();
             },
 
             onUnchecked: function() {
-
+              var c = $(this).attr('id')
+              checkedUnchecked[c] = false;
               markerCluster.clearMarkers();
-              crimeObject = dt[n];
-              setFilteredMCluster($(this).attr('id'));
+              setMCluster();
             }
           });
         });
@@ -339,12 +343,15 @@
     }
 
     function setMCluster() {
+      locations = [];
       for (n = 0; n < dt.length; n++) {
         crimeObject = dt[n];
-        setMarkers(crimeObject["crime"], crimeObject["hundredBlockAddress"],
-          crimeObject["monthOfCrime"], crimeObject["dayOfCrime"],
-          crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"],
-          crimeObject["latitude"], crimeObject["longitude"]);
+        if(checkedUnchecked[crimeObject["crime"]] == true) {
+          setMarkers(crimeObject["crime"], crimeObject["hundredBlockAddress"],
+            crimeObject["monthOfCrime"], crimeObject["dayOfCrime"],
+            crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"],
+            crimeObject["latitude"], crimeObject["longitude"]);
+        }
 
       }
 
@@ -372,11 +379,11 @@
     }
 
     function setFilteredMCluster(id) {
-      var newLocations = [];
+      locations = [];
       for (n = 0; n < dt.length; n++) {
         crimeObject = dt[n];
         if(!crimeObject["crime"].includes(id)) {
-          newLocations.push({
+          locations.push({
             lat: crimeObject["latitude"],
             lng: crimeObject["longitude"],
             info: "<h3>Crime:</h3> " + crimeObject["crime"] + "<h3>Address:</h3> " + crimeObject["hundredBlockAddress"] +
@@ -391,7 +398,7 @@
       // Note: The code uses the JavaScript Array.prototype.map() method to
       // create an array of markers based on a given "locations" array.
       // The map() method here has nothing to do with the Google Maps API.
-      markers = newLocations.map(function(location, i) {
+      markers = locations.map(function(location, i) {
         var marker = new google.maps.Marker({
           position: location
         });
