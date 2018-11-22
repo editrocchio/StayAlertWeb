@@ -78,6 +78,7 @@
     var db = firebase.firestore();
 
     var content = [];
+    var dt;
 
     // Disable deprecated features
     db.settings({
@@ -86,10 +87,12 @@
 
     var docRef = db.collection("new_data").doc("neighbourhoods");
 
+    /*Get the data from Firestore and put it in neighbourhood's variable.
+    Loop through this to get searchable details.*/
       docRef.get().then(function(doc) {
           if (doc.exists) {
             var data = doc.data();
-            var dt = data[Object.keys(data)[1]];
+            dt = data[Object.keys(data)[1]];
 
             for (n = 0; n < dt.length; n++) {
               var crimeObject = dt[n];
@@ -104,6 +107,8 @@
               console.log("No such document!");
           }
 
+          /*Sets up the search bar, sets content as the searchable array and
+          allows the title and description to be searchable*/
           $(document).ready(function() {
             $('.ui.search')
               .search({
@@ -112,13 +117,23 @@
                   'title', 'description'
                 ]
             });
+
+            for (n = 0; n < dt.length; n++) {
+
+              var crimeObject = dt[n];
+              populateTable(crimeObject["crime"], crimeObject["hundredBlockAddress"],
+              crimeObject["monthOfCrime"], crimeObject["dayOfCrime"],
+              crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"]);
+            }
           });
+
+
 
       }).catch(function(error) {
           console.log("Error getting document:", error);
       });
 
-
+      /*Pushes the details to content array*/
       function searchableItems(crime, address, month, day, year, time) {
         content.push({
           title: crime,
@@ -128,6 +143,12 @@
         });
       };
 
+      function populateTable(crime, address, month, day, year, time) {
+          $(table).find('tbody').append(
+            "<tr><td>" + crime + "</td><td>" + address + "</td><td>" + month + " " + day + " " + year + "</td><td>" + time + "</td></tr>"
+          );
+      }
+
   </script>
 
 
@@ -135,6 +156,8 @@
     <div class="ui raised very padded text container segment" id="inner">
       <h1>Database</h1>
       <div class="ui inverted divider"></div>
+
+      <!--Search Bar-->
       <div class="ui search">
         <div class="ui icon input">
           <input class="prompt" type="text" placeholder="Enter address, crime...">
@@ -142,9 +165,24 @@
         </div>
         <div class="results"></div>
       </div>
+
+      <!--Table-->
+      <table class="ui inverted celled table" id="table">
+        <div class="ui active medium text loader">Loading</div> <!--TODO make loader disappear -->
+        <thead>
+          <tr><th>Crime</th>
+          <th>Address</th>
+          <th>Date</th>
+          <th>Time</th>
+        </tr></thead>
+        <tbody>
+
+        </tbody>
+
+        </table>
+
     </div>
   </div>
-
 
 </body>
 

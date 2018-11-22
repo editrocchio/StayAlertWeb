@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+@author: Kevin Park
+-->
 
 <head>
   <title>Stay Alert</title>
@@ -272,6 +275,9 @@
       });
     }
 
+    /*When the map gets initialized get the data from Firestore and put the
+    individual data in a global variable. Also set up the initial cluster
+    markers and heat map.*/
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -300,6 +306,7 @@
           $('.menu .item')
             .tab();
 
+          /*If checked set crime as true and reload marker clusters*/
           $('.ui.checkbox').checkbox({
             onChecked: function() {
               var c = $(this).attr('id')
@@ -308,6 +315,7 @@
               setMCluster();
             },
 
+            /*If unchecked set crime as false and reload marker clusters*/
             onUnchecked: function() {
               var c = $(this).attr('id')
               checkedUnchecked[c] = false;
@@ -342,6 +350,9 @@
 
     }
 
+    /*Loop through the neighbourhood and grab the individual crime object.
+      If the crime is active then add it to locations array. Add this to
+      clusterMarkers which gets pushed to map. */
     function setMCluster() {
       locations = [];
       for (n = 0; n < dt.length; n++) {
@@ -370,46 +381,6 @@
         return marker;
       });
 
-      // markerCluster.setMarkers(markers);
-      // Add a marker clusterer to manage the markers.
-      markerCluster = new MarkerClusterer(map, markers, {
-        imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-        maxZoom: 18
-      });
-    }
-
-    function setFilteredMCluster(id) {
-      locations = [];
-      for (n = 0; n < dt.length; n++) {
-        crimeObject = dt[n];
-        if(!crimeObject["crime"].includes(id)) {
-          locations.push({
-            lat: crimeObject["latitude"],
-            lng: crimeObject["longitude"],
-            info: "<h3>Crime:</h3> " + crimeObject["crime"] + "<h3>Address:</h3> " + crimeObject["hundredBlockAddress"] +
-              "<h3>Date:</h3>" + crimeObject["monthOfCrime"] + " " + crimeObject["dayOfCrime"] + " " + crimeObject["yearOfCrime"] + "<h3>Time:</h3>" +
-              crimeObject["timeOfCrimeTwentyFourHour"]
-          });
-        }
-
-      }
-
-      // Add some markers to the map.
-      // Note: The code uses the JavaScript Array.prototype.map() method to
-      // create an array of markers based on a given "locations" array.
-      // The map() method here has nothing to do with the Google Maps API.
-      markers = locations.map(function(location, i) {
-        var marker = new google.maps.Marker({
-          position: location
-        });
-        google.maps.event.addListener(marker, 'click', function(evt) {
-          infoWin.setContent(location.info);
-          infoWin.open(map, marker);
-        })
-        return marker;
-      });
-
-      // markerCluster.setMarkers(markers);
       // Add a marker clusterer to manage the markers.
       markerCluster = new MarkerClusterer(map, markers, {
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
