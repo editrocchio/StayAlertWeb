@@ -115,16 +115,21 @@
                 source: content,
                 searchFields: [
                   'title', 'description'
-                ]
+                ],
+                //User clicks a search result, it is returned in result variable.
+                onSelect: function(result){
+                  jumpOnClick(result["title"], parseAddressFromResult(result["description"]));
+                }
             });
 
+            //Loop through the results and set up the table here.
             for (n = 0; n < dt.length; n++) {
-
               var crimeObject = dt[n];
               populateTable(crimeObject["crime"], crimeObject["hundredBlockAddress"],
               crimeObject["monthOfCrime"], crimeObject["dayOfCrime"],
               crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"]);
             }
+
           });
 
 
@@ -133,7 +138,7 @@
           console.log("Error getting document:", error);
       });
 
-      /*Pushes the details to content array*/
+      //Pushes the details to content array
       function searchableItems(crime, address, month, day, year, time) {
         content.push({
           title: crime,
@@ -145,8 +150,42 @@
 
       function populateTable(crime, address, month, day, year, time) {
           $(table).find('tbody').append(
-            "<tr><td>" + crime + "</td><td>" + address + "</td><td>" + month + " " + day + " " + year + "</td><td>" + time + "</td></tr>"
+            "<tr><td>" + crime + "</td><td>" + address + "</td><td>" + month +
+              " " + day + " " + year + "</td><td>" + time + "</td></tr>"
           );
+
+          //Hide the loading div after it begins to poplate.
+          $("#load").css("display", "none");
+      }
+
+
+      function jumpOnClick(crime, address) {
+        var table=document.getElementById('table');
+
+        for(var i=0; i<table.rows.length;i++){
+          $(table.rows[i]).css("display", "table-row");
+         }
+
+         for(var i=0; i<table.rows.length;i++){
+           var c=(table.rows[i].cells[0].innerHTML);
+           var a=(table.rows[i].cells[1].innerHTML);
+           if(!(c == crime) && !(" " + a == address)) {
+            $(table.rows[i]).css("display", "none");
+            }
+          }
+      }
+
+      /*Get the address from the click result. First get the position of the
+      second '<' which will always be the end of the address. Return the
+      substring starting at 13, which will always be the start of the
+      address and ending at the position found in the loop.*/
+      function parseAddressFromResult(result) {
+        var addressStopPoint = 1;
+
+        while(result.charAt(addressStopPoint) != '<') {
+          addressStopPoint++;
+        }
+        return result.substring(13, addressStopPoint);
       }
 
   </script>
@@ -168,18 +207,21 @@
 
       <!--Table-->
       <table class="ui inverted celled table" id="table">
-        <div class="ui active medium text loader">Loading</div> <!--TODO make loader disappear -->
+        <div class="ui active medium text loader" id="load">Loading</div>
+        <!--TODO make loader disappear -->
         <thead>
-          <tr><th>Crime</th>
-          <th>Address</th>
-          <th>Date</th>
-          <th>Time</th>
-        </tr></thead>
+          <tr>
+            <th>Crime</th>
+            <th>Address</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+        </thead>
         <tbody>
 
         </tbody>
 
-        </table>
+      </table>
 
     </div>
   </div>
