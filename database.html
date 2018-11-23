@@ -24,6 +24,8 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <!--Script to make table sortable-->
+  <script src="https://semantic-ui.com/javascript/library/tablesort.js"></script>
 
   <title>Database</title>
   <style>
@@ -118,7 +120,7 @@
                 ],
                 //User clicks a search result, it is returned in result variable.
                 onSelect: function(result){
-                  jumpOnClick(result["title"], parseAddressFromResult(result["description"]));
+                  sortOnClick(result["title"], parseAddressFromResult(result["description"]));
                 }
             });
 
@@ -130,8 +132,14 @@
               crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"]);
             }
 
-          });
+            //Add neighbourhood caption.
+            $("#table").append("<caption>Central Business District</caption>");
 
+            //Make table sortable.
+            $('table').tablesort();
+
+            addEventListeners();
+          });
 
 
       }).catch(function(error) {
@@ -148,9 +156,10 @@
         });
       };
 
+      //Find the table and append a new row with the required info.
       function populateTable(crime, address, month, day, year, time) {
           $(table).find('tbody').append(
-            "<tr><td>" + crime + "</td><td>" + address + "</td><td>" + month +
+            "<tr class='clickable'><td>" + crime + "</td><td>" + address + "</td><td>" + month +
               " " + day + " " + year + "</td><td>" + time + "</td></tr>"
           );
 
@@ -158,15 +167,16 @@
           $("#load").css("display", "none");
       }
 
-
-      function jumpOnClick(crime, address) {
+      /*First reset all the display rows in case they were previously hidden.
+      Then hide all the rows that don't contain the crime and address.*/
+      function sortOnClick(crime, address) {
         var table=document.getElementById('table');
 
         for(var i=0; i<table.rows.length;i++){
           $(table.rows[i]).css("display", "table-row");
          }
 
-         for(var i=0; i<table.rows.length;i++){
+         for(var i=1; i<table.rows.length;i++){
            var c=(table.rows[i].cells[0].innerHTML);
            var a=(table.rows[i].cells[1].innerHTML);
            if(!(c == crime) && !(" " + a == address)) {
@@ -188,6 +198,17 @@
         return result.substring(13, addressStopPoint);
       }
 
+      //Loop through the rows and add an event listener TODO
+      function addEventListeners() {
+        var rows = document.getElementsByClassName("clickable");
+
+        for (var i = 0; i < rows.length; i++) {
+            rows[i].addEventListener("click", function(){
+              alert($(this).closest("tr").find("td:nth-child(2)").text());
+            });
+        }
+      }
+
   </script>
 
 
@@ -206,9 +227,8 @@
       </div>
 
       <!--Table-->
-      <table class="ui inverted celled table" id="table">
+      <table class="ui sortable selectable inverted celled table" id="table">
         <div class="ui active medium text loader" id="load">Loading</div>
-        <!--TODO make loader disappear -->
         <thead>
           <tr>
             <th>Crime</th>
