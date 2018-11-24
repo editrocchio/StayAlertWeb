@@ -78,9 +78,9 @@
   <script>
     // Initialize Cloud Firestore through Firebase
     var db = firebase.firestore();
-
     var content = [];
     var dt;
+    var rowClicked;
 
     // Disable deprecated features
     db.settings({
@@ -139,6 +139,11 @@
             $('table').tablesort();
 
             addEventListeners();
+
+            //Make each row link to index.html
+            $("#tbody").on('click', 'tr', function() {
+                window.location = 'index.html';
+            });
           });
 
 
@@ -198,19 +203,25 @@
         return result.substring(13, addressStopPoint);
       }
 
-      //Loop through the rows and add an event listener TODO
+      /*Loop through the rows and add an event listener. The function pushes
+      the row details to the rowClicked array.*/
       function addEventListeners() {
         var rows = document.getElementsByClassName("clickable");
 
         for (var i = 0; i < rows.length; i++) {
             rows[i].addEventListener("click", function(){
-              alert($(this).closest("tr").find("td:nth-child(2)").text());
+                rowClicked={
+                  crime:$(this).closest("tr").find("td:first-child").text(),
+                  address:$(this).closest("tr").find("td:nth-child(2)").text(),
+                  date:$(this).closest("tr").find("td:nth-child(3)").text(),
+                  time:$(this).closest("tr").find("td:nth-child(4)").text()
+                };
+              sessionStorage.setItem('fromDatabase', JSON.stringify(rowClicked));
             });
         }
       }
 
   </script>
-
 
   <div class="ui raised very padded text container segment">
     <div class="ui raised very padded text container segment" id="inner">
@@ -237,7 +248,7 @@
             <th>Time</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id='tbody'>
 
         </tbody>
 
