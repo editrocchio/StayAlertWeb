@@ -1,0 +1,137 @@
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+      body {
+        background: #a9aab0 !important;
+      }
+      
+      #map {
+        height: 80%;
+        width: 50%;
+        margin-left: 10%;
+        margin-bottom: 2%;
+        border: 2px solid black;
+        display: inline-block;
+        border-radius: 10px;
+      }
+
+      #floating-panel {
+        margin-left: 10%;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0 0 0 0;
+        padding: 0;
+        background-color: #A9AAB0;
+      }
+
+      .ui.inverted.menu {
+        margin-bottom: 2%;
+        background: #292f33
+      }
+
+      .twitter-timeline {
+        margin-left: 0;
+        padding-bottom: 200px;
+        border-radius: 1%;
+      }
+
+      #twitterDiv {
+        margin-bottom: 8%;
+        border: 2px solid black;
+        width: 50%;
+        height: 504px;
+        margin-left: 10%;
+        border-radius: 10px;
+      }
+
+      #filter {
+        width: 28%;
+        height: auto;
+        background-color: #292f33;
+        float: right;
+        margin: 0 10% 0 0;
+        padding-left: 10px;
+        padding-top: 10px;
+        text-align: left;
+        border-radius: 10px;
+        z-index: 1000;
+        border: 2px solid black;
+      }
+
+      .disclaimer {
+        width: 28%;
+        height: auto;
+        background-color: #292f33;
+        float: right;
+        margin: 0 10% 0 0;
+        padding: 10px 10px 10px 10px;
+        text-align: left;
+        border-radius: 10px;
+        z-index: 1000;
+        border: 2px solid black;
+        position: relative;
+        bottom: 230px;
+      }
+
+      .outercheck {
+        margin-bottom: 5%;
+        height: 4%;
+      }
+
+      p {
+        color: white;
+      }
+
+      #disclaimerText {
+        font-size: 11pt;
+      }
+
+      @media screen and (max-width: 1100px) {
+
+        label p {
+          font-size: 8pt;
+        }
+
+        #disclaimerText {
+          font-size: 8pt;
+        }
+      }
+
+      @media screen and (max-width: 800px) {
+
+        #map {
+          width: 80%;
+        }
+
+        #filter {
+          float: none;
+          margin-left: 10%;
+          margin-bottom: 2%;
+          width: 80%;
+          height: auto;
+        }
+
+        .disclaimer {
+          float: none;
+          margin-left: 10%;
+          width: 80%;
+          height: auto;
+          position: static;
+          margin-bottom: 2%;
+        }
+
+        #twitterDiv {
+          width: 80%;
+        }
+
+        label p {
+          font-size: 11pt;
+        }
+
+        #disclaimerText {
+          font-size: 11pt;
+        }
+
+      }
