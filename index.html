@@ -126,6 +126,12 @@
         </label>
       </div>
     </div>
+    <div class="ui inverted divider"></div>
+    <div class="ui checkbox check-all">
+      <input type="checkbox" name="checkall" checked="">
+      <label>Select/Deselect All</label>
+    </div>
+
   </div>
 
   <div class="disclaimer">
@@ -237,7 +243,7 @@
           /*If checked set crime as true and reload marker clusters*/
           $('.ui.checkbox').checkbox({
             onChecked: function() {
-              var c = $(this).attr('id')
+              var c = $(this).attr('id');
               checkedUnchecked[c] = true;
               markerCluster.clearMarkers();
               setMCluster();
@@ -245,12 +251,41 @@
 
             /*If unchecked set crime as false and reload marker clusters*/
             onUnchecked: function() {
-              var c = $(this).attr('id')
+              var c = $(this).attr('id');
               checkedUnchecked[c] = false;
               markerCluster.clearMarkers();
               setMCluster();
             }
           });
+
+          /* Check or uncheck all checkbox. Set the checkedUnchecked values to
+          either true or false, and reload the map.*/
+          $('.ui.checkbox.check-all').checkbox({
+            onChecked: function() {
+              $('.ui.checkbox').checkbox('check');
+
+              for(f in checkedUnchecked) {
+                if(checkedUnchecked[f] == false) {
+                  checkedUnchecked[f] = true;
+                }
+              }
+              markerCluster.clearMarkers();
+              setMCluster();
+            },
+            onUnchecked: function() {
+              $('.ui.checkbox').checkbox('uncheck');
+
+              for(f in checkedUnchecked) {
+                if(checkedUnchecked[f] == true) {
+                  checkedUnchecked[f] = false;
+                }
+              }
+              markerCluster.clearMarkers();
+              setMCluster();
+
+            }
+          });
+
         });
 
       }).catch(function(error) {
