@@ -1,0 +1,26 @@
+body {
+ height: 100%;
+ margin: 0 0 0 0;
+ padding: 0;
+ background-color: #A9AAB0;
+}
+
+.ui.raised.very.padded.text.container.segment {
+  margin-top: -14px;
+  margin-left: 10%;
+  background-color: #656774;
+  height: auto;
+}
+
+.ui.text.container {
+  max-width: 80% !important;
+
+}
+
+.ui.inverted.menu {
+ background: #292f33
+}
+
+.ui.accordion .title:not(.ui) {
+ font-size: 1.6em;
+}
