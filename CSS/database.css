@@ -1,0 +1,28 @@
+body {
+   height: 100%;
+   margin: 0 0 0 0;
+   padding: 0;
+   background-color: #A9AAB0;
+  }
+
+  .ui.raised.very.padded.text.container.segment {
+    margin-top: -14px;
+    margin-left: 10%;
+    background-color: #656774;
+    height: auto;
+  }
+
+  #inner {
+    color: white;
+    background-color: black;
+    height: auto;
+  }
+
+  .ui.text.container {
+    max-width: 100% !important;
+
+  }
+
+  .clickable {
+    cursor: pointer;
+  }

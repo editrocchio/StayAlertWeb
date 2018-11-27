@@ -1,0 +1,44 @@
+body {
+ height: 100%;
+ margin: 0 0 0 0;
+ padding: 0;
+ background-color: #A9AAB0;
+}
+
+.ui.raised.very.padded.text.container.segment {
+  margin-top: -14px;
+  margin-left: 10%;
+  background-color: #656774;
+  height: auto;
+}
+
+.ui.text.container {
+  max-width: 80% !important;
+
+}
+
+.ui.inverted.menu {
+ background: #292f33
+}
+
+#emergency {
+ text-align: center;
+ width: 80%;
+ margin-left: 10%;
+ margin-bottom: 5%;
+ height: 65px;
+ border: solid 2px red;
+ background-color: #ffcccc;
+ border-radius: 10px;
+}
+
+.emergencyText {
+ padding-left: 10px;
+ line-height: 5px;
+ font-size: 28pt;
+ color: red;
+}
+
+.ui.accordion .title:not(.ui) {
+ font-size: 1.6em;
+}
