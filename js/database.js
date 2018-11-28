@@ -31,6 +31,18 @@
             console.log("No such document!");
         }
 
+        //Fixes time format by checking if size is less than 4, and adds a 
+        //0 if so.
+        function fixTime(time) {
+            parts = time.split(":");
+            console.log(parts);
+            minutes = parts[1];
+              if(minutes.length==1) {
+                  return time + "0";
+              }
+              return time;
+        }
+
         /*Sets up the search bar, sets content as the searchable array and
         allows the title and description to be searchable*/
         $(document).ready(function() {
@@ -51,7 +63,7 @@
             var crimeObject = dt[n];
             populateTable(crimeObject["crime"], crimeObject["hundredBlockAddress"],
             crimeObject["monthOfCrime"], crimeObject["dayOfCrime"],
-            crimeObject["yearOfCrime"], crimeObject["timeOfCrimeTwentyFourHour"]);
+            crimeObject["yearOfCrime"], fixTime(crimeObject["timeOfCrimeTwentyFourHour"]));
           }
 
           //Add neighbourhood caption.
@@ -72,6 +84,8 @@
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
+
+
 
     //Pushes the details to content array
     function searchableItems(crime, address, month, day, year, time) {

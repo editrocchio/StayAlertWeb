@@ -22,15 +22,28 @@
     "Mischief":true, "Other Theft":true, "Theft from Vehicle":true, "Theft of Vehicle":true,
     "Theft of Bicycle":true,"Vehicle Collision or Pedestrian Struck (with Injury)":true};
 
+    //Fixes time format by checking if size is less than 4, and adds a
+    //0 if so.
+    function fixTime(time) {
+        parts = time.split(":");
+        minutes = parts[1];
+          if(minutes.length==1) {
+              return time + "0";
+          }
+          return time;
+    }
+
   function setMarkers(crime, address, month, day, year, time, latitude, longitude) {
     locations.push({
       lat: latitude,
       lng: longitude,
       info: "<h3>Crime:</h3> " + crime + "<h3>Address:</h3> " + address +
         "<h3>Date:</h3>" + month + " " + day + " " + year + "<h3>Time:</h3>" +
-        time
+        fixTime(time)
     });
   }
+
+
 
   /*When the map gets initialized get the data from Firestore and put the
   individual data in a global variable. Also set up the initial cluster
@@ -41,7 +54,6 @@
 
     docRef.get().then(function(doc) {
       var data;
-
       if (doc.exists) {
         data = doc.data();
         dt = data[Object.keys(data)[1]];
@@ -204,6 +216,5 @@
 
   function zoomFromDatabase() {
     fromDatabase = JSON.parse(sessionStorage.getItem('fromDatabase'));
-    console.log(fromDatabase);
     sessionStorage.clear();
   }
